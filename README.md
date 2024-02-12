@@ -1,3 +1,6 @@
-# Getting Started with Create React App
+# Concepts Used
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<small>Create React App</small>
+<small> Materila UI</small>
+<small>React Router DOM</small>
+<small> Props Drilling</small>

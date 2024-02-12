@@ -3,6 +3,7 @@ import { useState } from "react";
 import AppLayout from "./components/AppLayout";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
+import Cart from "./components/Cart";
 const App = () => {
   const [cart, setCart] = useState([]);
   const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -56,6 +57,17 @@ const App = () => {
                   sideBarOpen={sideBarOpen}
                   setSideBarOpen={setSideBarOpen}
                   setCart={setCart}
+                />
+              }
+            />
+            <Route
+              path="cart"
+              element={
+                <Cart
+                  cart={cart}
+                  setCart={setCart}
+                  sideBarOpen={sideBarOpen}
+                  setSideBarOpen={setSideBarOpen}
                 />
               }
             />

@@ -11,7 +11,12 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
 const CartPopup = ({ cart, sideBarOpen, setSideBarOpen, setCart }) => {
+  const navigate = useNavigate();
+  const toCart = () => {
+    navigate("/cart");
+  };
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.up("sm"));
   const sideBarWidth = isLarge ? "500px" : "320px";
@@ -119,7 +124,7 @@ const CartPopup = ({ cart, sideBarOpen, setSideBarOpen, setCart }) => {
                   padding: "20px 15px",
                 }}
               >
-                Subtotal: {subTotal}
+                Subtotal: {Math.round(subTotal)}
               </Typography>
             </Box>
           </>
@@ -133,7 +138,14 @@ const CartPopup = ({ cart, sideBarOpen, setSideBarOpen, setCart }) => {
               <Container>
                 <Grid container>
                   <Grid item xl={6} lg={6} md={6}>
-                    <Button variant="outlined" color="success">
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      onClick={() => {
+                        toCart();
+                        setSideBarOpen(false);
+                      }}
+                    >
                       View Cart
                     </Button>
                   </Grid>

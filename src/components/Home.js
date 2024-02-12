@@ -4,7 +4,7 @@ import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
 import CartPopup from "./CartPopup";
-const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart }) => {
+const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart, setCart }) => {
   const [topProducts, setTopProducts] = useState([]);
   const navigate = useNavigate();
   const viewAllProducts = () => {
@@ -16,13 +16,12 @@ const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart }) => {
       try {
         const result = await topProductsAPI.json();
         setTopProducts(result);
-        console.log(setTopProducts);
       } catch (error) {
         console.log(error);
       }
     };
     topProductsFunc();
-  });
+  }, []);
 
   return (
     <>
@@ -154,6 +153,7 @@ const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart }) => {
         sideBarOpen={sideBarOpen}
         setSideBarOpen={setSideBarOpen}
         cart={cart}
+        setCart={setCart}
       />
     </>
   );

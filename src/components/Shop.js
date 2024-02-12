@@ -3,7 +3,7 @@ import { BASE_URL } from "../utils";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import CartPopup from "./CartPopup";
-const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart }) => {
+const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart, setCart }) => {
   const [shopList, setShopList] = useState([]);
   useEffect(() => {
     const productListFunc = async () => {
@@ -12,7 +12,7 @@ const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart }) => {
       setShopList(result);
     };
     productListFunc();
-  });
+  }, []);
 
   return (
     <>
@@ -135,6 +135,7 @@ const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart }) => {
         sideBarOpen={sideBarOpen}
         setSideBarOpen={setSideBarOpen}
         cart={cart}
+        setCart={setCart}
       />
     </>
   );

@@ -1,14 +1,14 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import TopArea from "./TopArea";
-const Header = () => {
+const Header = ({ setSideBarOpen }) => {
   const navigate = useNavigate();
   const homeNavigate = () => {
     navigate("/");
   };
   return (
     <>
-      <TopArea />
+      <TopArea setSideBarOpen={setSideBarOpen} />
       <Box>
         <Container maxWidth="true">
           <Grid container style={{ alignItems: "center" }}>

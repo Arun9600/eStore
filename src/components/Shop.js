@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { BASE_URL } from "../utils";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-const Shop = () => {
+import CartPopup from "./CartPopup";
+const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart }) => {
   const [shopList, setShopList] = useState([]);
   useEffect(() => {
     const productListFunc = async () => {
@@ -26,9 +27,15 @@ const Shop = () => {
                 height: "20vh",
                 alignItems: "center",
                 justifyContent: "center",
+                width: "100%",
               }}
             >
-              <Typography variant="h2">Shop</Typography>
+              <Typography
+                variant="h2"
+                style={{ color: "#fff", textAlign: "center" }}
+              >
+                Shop
+              </Typography>
             </Grid>
           </Grid>
         </Container>
@@ -109,7 +116,13 @@ const Shop = () => {
                         xs={6}
                         style={{ textAlign: "right" }}
                       >
-                        <AddShoppingCartIcon />
+                        <AddShoppingCartIcon
+                          onClick={() => {
+                            addToCart(products);
+                            setSideBarOpen(true);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        />
                       </Grid>
                     </Grid>
                   </Box>
@@ -118,6 +131,11 @@ const Shop = () => {
           </Grid>
         </Container>
       </Box>
+      <CartPopup
+        sideBarOpen={sideBarOpen}
+        setSideBarOpen={setSideBarOpen}
+        cart={cart}
+      />
     </>
   );
 };

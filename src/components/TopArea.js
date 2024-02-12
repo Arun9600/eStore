@@ -7,7 +7,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-const TopArea = () => {
+import CartPopup from "./CartPopup";
+const TopArea = ({ setSideBarOpen }) => {
   const theme = useTheme();
   const topAreaAlign = useMediaQuery(theme.breakpoints.up("xs"));
   const align = topAreaAlign ? "right" : "center";
@@ -33,11 +34,15 @@ const TopArea = () => {
               xs={4}
               style={{ textAlign: `${align}` }}
             >
-              <ShoppingCartCheckoutIcon style={{ color: "#fff" }} />
+              <ShoppingCartCheckoutIcon
+                style={{ color: "#fff" }}
+                onClick={() => setSideBarOpen(true)}
+              />
             </Grid>
           </Grid>
         </Container>
       </Box>
+      <CartPopup />
     </>
   );
 };

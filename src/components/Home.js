@@ -3,7 +3,8 @@ import { BASE_URL } from "../utils";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
-const Home = () => {
+import CartPopup from "./CartPopup";
+const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart }) => {
   const [topProducts, setTopProducts] = useState([]);
   const navigate = useNavigate();
   const viewAllProducts = () => {
@@ -12,8 +13,13 @@ const Home = () => {
   useEffect(() => {
     const topProductsFunc = async () => {
       const topProductsAPI = await fetch(`${BASE_URL}/products?limit=6`);
-      const result = await topProductsAPI.json();
-      setTopProducts(result);
+      try {
+        const result = await topProductsAPI.json();
+        setTopProducts(result);
+        console.log(setTopProducts);
+      } catch (error) {
+        console.log(error);
+      }
     };
     topProductsFunc();
   });
@@ -31,9 +37,15 @@ const Home = () => {
                 height: "50vh",
                 alignItems: "center",
                 justifyContent: "center",
+                width: "100%",
               }}
             >
-              <Typography variant="h1">Welcome to eStore</Typography>
+              <Typography
+                variant="h1"
+                style={{ color: "#fff", textAlign: "center" }}
+              >
+                Welcome to eStore
+              </Typography>
             </Grid>
           </Grid>
         </Container>
@@ -114,13 +126,19 @@ const Home = () => {
                         xs={6}
                         style={{ textAlign: "right" }}
                       >
-                        <AddShoppingCartIcon />
+                        <AddShoppingCartIcon
+                          onClick={() => {
+                            addToCart(products);
+                            setSideBarOpen(true);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        />
                       </Grid>
                     </Grid>
                   </Box>
                 </Grid>
               ))}
-            <Grid item xl={12} style={{ textAlign: "center" }}>
+            <Grid item xl={12} md={12} xs={12} style={{ textAlign: "center" }}>
               <Button
                 variant="outlined"
                 color="success"
@@ -132,6 +150,11 @@ const Home = () => {
           </Grid>
         </Container>
       </Box>
+      <CartPopup
+        sideBarOpen={sideBarOpen}
+        setSideBarOpen={setSideBarOpen}
+        cart={cart}
+      />
     </>
   );
 };

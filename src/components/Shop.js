@@ -3,7 +3,15 @@ import { BASE_URL } from "../utils";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import CartPopup from "./CartPopup";
-const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart, setCart }) => {
+import { Link } from "react-router-dom";
+const Shop = ({
+  addToCart,
+  setSideBarOpen,
+  sideBarOpen,
+  cart,
+  setCart,
+  setSingleProduct,
+}) => {
   const [shopList, setShopList] = useState([]);
   useEffect(() => {
     const productListFunc = async () => {
@@ -13,6 +21,10 @@ const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart, setCart }) => {
     };
     productListFunc();
   }, []);
+
+  const productView = (id) => {
+    setSingleProduct(id);
+  };
 
   return (
     <>
@@ -85,16 +97,22 @@ const Shop = ({ addToCart, setSideBarOpen, sideBarOpen, cart, setCart }) => {
                         paddingBottom: "15px",
                       }}
                     />
-                    <Typography
-                      variant="h2"
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
+                    <Link
+                      to={`/productDetail/${products.title}`}
+                      style={{ color: "#000", textDecoration: "none" }}
                     >
-                      {products.title}
-                    </Typography>
+                      <Typography
+                        variant="h2"
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: "bold",
+                          marginBottom: "10px",
+                        }}
+                        onClick={() => productView(products.id)}
+                      >
+                        {products.title}
+                      </Typography>
+                    </Link>
                     <Grid
                       container
                       style={{ alignItems: "center", justifyContent: "center" }}

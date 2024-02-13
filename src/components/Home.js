@@ -4,12 +4,21 @@ import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
 import CartPopup from "./CartPopup";
-const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart, setCart }) => {
+import { Link } from "react-router-dom";
+const Home = ({
+  addToCart,
+  sideBarOpen,
+  setSideBarOpen,
+  cart,
+  setCart,
+  setSingleProduct,
+}) => {
   const [topProducts, setTopProducts] = useState([]);
   const navigate = useNavigate();
   const viewAllProducts = () => {
     navigate("/shop");
   };
+
   useEffect(() => {
     const topProductsFunc = async () => {
       const topProductsAPI = await fetch(`${BASE_URL}/products?limit=6`);
@@ -22,6 +31,10 @@ const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart, setCart }) => {
     };
     topProductsFunc();
   }, []);
+
+  const productView = (id) => {
+    setSingleProduct(id);
+  };
 
   return (
     <>
@@ -94,16 +107,24 @@ const Home = ({ addToCart, sideBarOpen, setSideBarOpen, cart, setCart }) => {
                         paddingBottom: "15px",
                       }}
                     />
-                    <Typography
-                      variant="h2"
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
+                    <Link
+                      to={`/productDetail/${products.title}`}
+                      style={{ color: "#000", textDecoration: "none" }}
                     >
-                      {products.title}
-                    </Typography>
+                      <Typography
+                        onClick={() => {
+                          productView(products.id);
+                        }}
+                        variant="h2"
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: "bold",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        {products.title}
+                      </Typography>
+                    </Link>
                     <Grid
                       container
                       style={{ alignItems: "center", justifyContent: "center" }}
